@@ -68,8 +68,8 @@ You don't need to do this on your own, because we prepared a trusted build for t
 
 ## Source
 
-The source is [available on GitHub](https://github.com/jboss/dockerfiles/tree/master/wildfly).
+The source is [available on GitHub](https://github.com/JBoss-Dockerfiles/wildfly).
 
 ## Issues
 
-Please report any issues or file RFEs on [GitHub](https://github.com/jboss/dockerfiles/issues).
+Please report any issues or file RFEs on [GitHub](https://github.com/JBoss-Dockerfiles/wildfly/issues).
