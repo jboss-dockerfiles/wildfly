@@ -10,7 +10,7 @@ To boot in standalone mode
 
 To boot in domain mode
 
-    docker run -it jboss/wildfly /opt/wildfly/bin/domain.sh -b 0.0.0.0 -bmanagement 0.0.0.0
+    docker run -it jboss/wildfly /opt/jboss/wildfly/bin/domain.sh -b 0.0.0.0 -bmanagement 0.0.0.0
 
 ## Application deployment
 
@@ -21,7 +21,7 @@ With the WildFly server you can [deploy your application in multiple ways](https
 3. You can use the management API directly
 4. You can use the deployment scanner
 
-The most popular way of deploying an application is using the deployment scanner. In WildFly this method is enabled by default and the only thing you need to do is to place your application inside of the `deployments/` directory. It can be `/opt/wildfly/standalone/deployments/` or `/opt/wildfly/domain/deployments/` depending on [which mode](https://docs.jboss.org/author/display/WFLY8/Operating+modes) you choose (standalone is default in the `jboss/wildfly` image -- see above).
+The most popular way of deploying an application is using the deployment scanner. In WildFly this method is enabled by default and the only thing you need to do is to place your application inside of the `deployments/` directory. It can be `/opt/jboss/wildfly/standalone/deployments/` or `/opt/jboss/wildfly/domain/deployments/` depending on [which mode](https://docs.jboss.org/author/display/WFLY8/Operating+modes) you choose (standalone is default in the `jboss/wildfly` image -- see above).
 
 The simplest and cleanest way to deploy an application to WildFly running in a container started from the `jboss/wildfly` image is to use the deployment scanner method mentioned above.
 
@@ -32,7 +32,7 @@ To do this you just need to extend the `jboss/wildfly` image by creating a new o
 1. Create `Dockerfile` with following content:
 
         FROM jboss/wildfly
-        ADD your-awesome-app.war /opt/wildfly/standalone/deployments/
+        ADD your-awesome-app.war /opt/jboss/wildfly/standalone/deployments/
 2. Place your `your-awesome-app.war` file in the same directory as your `Dockerfile`.
 3. Run the build with `docker build --tag=wildfly-app .`
 4. Run the container with `docker run -it wildfly-app`. Application will be deployed on the container boot.
@@ -43,12 +43,20 @@ This way of deployment is great because of a few things:
 2. Rebuilding image this way is very fast (once again: Docker)
 3. You only need to do changes to the base WildFly image that are required to run your application
 
+## Logging
+
+Logging can be done in many ways. [This blog post](https://goldmann.pl/blog/2014/07/18/logging-with-the-wildfly-docker-image/) describes a lot of them.
+
+## Customizing configuration
+
+Sometimes you need to customize the application server configuration. There are many ways to do it and [this blog post](https://goldmann.pl/blog/2014/07/23/customizing-the-configuration-of-the-wildfly-docker-image/) tries to summarize it.
+
 ## Extending the image
 
 To be able to create a management user to access the administration console create a Dockerfile with the following content
 
     FROM jboss/wildfly
-    RUN /opt/wildfly/bin/add-user.sh admin Admin#70365 --silent
+    RUN /opt/jboss/wildfly/bin/add-user.sh admin Admin#70365 --silent
 
 Then you can build the image:
 
@@ -65,6 +73,14 @@ The administration console should be available at http://localhost:9990.
 You don't need to do this on your own, because we prepared a trusted build for this repository, but if you really want:
 
     docker build --rm=true --tag=jboss/wildfly .
+
+## Image internals [updated Oct 14, 2014]
+
+This image extends the [`jboss/base-jdk:7`](https://github.com/JBoss-Dockerfiles/base-jdk/tree/jdk7) image which adds the OpenJDK distribution on top of the [`jboss/base`](https://github.com/JBoss-Dockerfiles/base) image. Please refer to the README.md for selected images for more info.
+
+The server is run as the `jboss` user which has the uid/gid set to `1000`.
+
+WildFly is installed in the `/opt/jboss/wildfly` directory.
 
 ## Source
 
