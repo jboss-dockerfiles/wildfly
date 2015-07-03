@@ -1,8 +1,8 @@
 # Use latest jboss/base-jdk:7 image as the base
-FROM jboss/base-jdk:7
+FROM jboss/base-jdk:8
 
 # Set the WILDFLY_VERSION env variable
-ENV WILDFLY_VERSION 8.2.0.Final
+ENV WILDFLY_VERSION 9.0.0.Final
 
 # Add the WildFly distribution to /opt, and make wildfly the owner of the extracted tar content
 # Make sure the distribution is available from a well-known place
