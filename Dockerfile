@@ -2,8 +2,8 @@
 FROM jboss/base-jdk:8
 
 # Set the WILDFLY_VERSION env variable
-ENV WILDFLY_VERSION 9.0.0.Final
-ENV WILDFLY_SHA1 6a6c369581da1f1eb606512f144cb6aafa19a7ef
+ENV WILDFLY_VERSION 9.0.1.Final
+ENV WILDFLY_SHA1 abe037d5d1cb97b4d07fbfe59b6a1345a39a9ae5
 ENV JBOSS_HOME /opt/jboss/wildfly
 
 # Add the WildFly distribution to /opt, and make wildfly the owner of the extracted tar content
