@@ -77,7 +77,7 @@ You don't need to do this on your own, because we prepared a trusted build for t
 
 ## Image internals [updated Oct 14, 2014]
 
-This image extends the [`jboss/base-jdk:7`](https://github.com/JBoss-Dockerfiles/base-jdk/tree/jdk7) image which adds the OpenJDK distribution on top of the [`jboss/base`](https://github.com/JBoss-Dockerfiles/base) image. Please refer to the README.md for selected images for more info.
+This image extends the [`jboss/base-jdk:8`](https://github.com/jboss-dockerfiles/base-jdk/tree/jdk8) image which adds the OpenJDK distribution on top of the [`jboss/base`](https://github.com/jboss-dockerfiles/base) image. Please refer to the README.md for selected images for more info.
 
 The server is run as the `jboss` user which has the uid/gid set to `1000`.
 
@@ -85,8 +85,8 @@ WildFly is installed in the `/opt/jboss/wildfly` directory.
 
 ## Source
 
-The source is [available on GitHub](https://github.com/JBoss-Dockerfiles/wildfly).
+The source is [available on GitHub](https://github.com/jboss-dockerfiles/wildfly).
 
 ## Issues
 
-Please report any issues or file RFEs on [GitHub](https://github.com/JBoss-Dockerfiles/wildfly/issues).
+Please report any issues or file RFEs on [GitHub](https://github.com/jboss-dockerfiles/wildfly/issues).
