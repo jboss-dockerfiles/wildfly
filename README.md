@@ -65,9 +65,9 @@ Then you can build the image:
 
 Run it:
 
-    docker run -it -p 9990:9990 jboss/wildfly-admin
+    docker run -it jboss/wildfly-admin
 
-The administration console should be available at http://localhost:9990.
+Administration console will be available on the port `9990` of the container.
 
 ## Building on your own
 
