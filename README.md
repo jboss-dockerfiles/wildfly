@@ -44,9 +44,8 @@ To do this you just need to extend the `jboss/wildfly` image by creating a new o
 
 1. Add a management user:
         With the container running: docker exec -it CONTAINER_ID /bin/sh -c '/opt/jboss/wildfly/bin/add-user.sh -u username -p P@ssw0rd -s -e'
-2. Start the container exposing the port 9990 to use the Management Console or the port 9999 to use the JBoss CLI.
-        Management Console: docker run -it -p 9990:9990 jboss/wildfly /opt/jboss/wildfly/bin/domain.sh -b 0.0.0.0 -bmanagement 0.0.0.0
-        JBoss CLI: docker run -it -p 9999:9999 jboss/wildfly /opt/jboss/wildfly/bin/domain.sh -b 0.0.0.0 -bmanagement 0.0.0.0
+2. Start the container exposing the port 9990 to use the Management Console and JBoss CLI.
+        docker run -it -p 9990:9990 jboss/wildfly /opt/jboss/wildfly/bin/domain.sh -b 0.0.0.0 -bmanagement 0.0.0.0
 3. Follow the [deployment guide](https://docs.jboss.org/author/display/WFLY9/Admin+Guide#AdminGuide-JavaEEApplicationDeployment)
 
 
