@@ -42,12 +42,18 @@ To do this you just need to extend the `jboss/wildfly` image by creating a new o
 
 #Domain deployment
 
-1. Add a management user:
-        With the container running: docker exec -it CONTAINER_ID /bin/sh -c '/opt/jboss/wildfly/bin/add-user.sh -u username -p P@ssw0rd -s -e'
-2. Start the container exposing the port 9990 to use the Management Console and JBoss CLI.
+1. Start the container exposing the port 9990 to use the Management Console and JBoss CLI.
         docker run -it -p 9990:9990 jboss/wildfly /opt/jboss/wildfly/bin/domain.sh -b 0.0.0.0 -bmanagement 0.0.0.0
-3. Follow the [deployment guide](https://docs.jboss.org/author/display/WFLY9/Admin+Guide#AdminGuide-JavaEEApplicationDeployment)
+2. Add a management user:
+        With the container running: docker exec -it CONTAINER_ID /bin/sh -c '/opt/jboss/wildfly/bin/add-user.sh -u username -p P@ssw0rd -s -e'
+3. Access the Management Console and follow the [deployment guide](https://docs.jboss.org/author/display/WFLY9/Admin+Guide#AdminGuide-JavaEEApplicationDeployment)
 
+If you wish to use the CLI, you can:
+
+1. Use the CLI from a installed Wildfly instance on your machine to access the CLI on the Docker container.
+2. Or, add your application in the container using Docker file as explained on the standalone deployment section and then use the following command to connect in the CLI and deploy your application:
+	docker run -it -p 9990:9990 jboss/wildfly /opt/jboss/wildfly/bin/jboss-cli.sh -c --command='deploy /opt/jboss/wildfly/standalone/deployments/your-awesome-app.war --all-server-groups'
+   Note: The example above will deploy the application in all available server-groups, if you want do deploy the application in a specific server group, use  --server-groups instead.
 
 This way of deployment is great because of a few things:
 
