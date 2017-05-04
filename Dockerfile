@@ -26,6 +26,8 @@ USER jboss
 
 # Expose the ports we're interested in
 EXPOSE 8080
+# Expose the volume
+VOLUME ["/opt/jboss/wildfly/standalone"]
 
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
