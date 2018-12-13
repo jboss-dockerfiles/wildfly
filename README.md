@@ -79,9 +79,9 @@ You don't need to do this on your own, because we prepared a trusted build for t
 
     docker build --rm=true --tag=jboss/wildfly .
 
-## Image internals [updated Oct 14, 2014]
+## Image internals [updated Dec 13, 2018]
 
-This image extends the [`jboss/base-jdk:8`](https://github.com/jboss-dockerfiles/base-jdk/tree/jdk8) image which adds the OpenJDK distribution on top of the [`jboss/base`](https://github.com/jboss-dockerfiles/base) image. Please refer to the README.md for selected images for more info.
+This image extends the [`jboss/base-jdk:11`](https://github.com/jboss-dockerfiles/base-jdk/tree/jdk11) image which adds the OpenJDK distribution on top of the [`jboss/base`](https://github.com/jboss-dockerfiles/base) image. Please refer to the README.md for selected images for more info.
 
 The server is run as the `jboss` user which has the uid/gid set to `1000`.
 
