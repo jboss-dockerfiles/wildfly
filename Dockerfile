@@ -22,6 +22,9 @@ RUN cd $HOME \
 # Ensure signals are forwarded to the JVM process correctly for graceful shutdown
 ENV LAUNCH_JBOSS_IN_BACKGROUND true
 
+# Ensure the user could set the password for root user
+RUN passwd --delete root
+
 USER jboss
 
 # Expose the ports we're interested in
