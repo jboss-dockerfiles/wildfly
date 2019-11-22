@@ -10,7 +10,7 @@ To boot in standalone mode
     
 To boot in standalone mode with admin console available remotely
 
-    docker run -p 8080:8080 -p 9990:9990 -it jboss/wildfly /opt/jboss/wildfly/bin/standalone.sh -bmanagement 0.0.0.0
+    docker run -p 8080:8080 -p 9990:9990 -it jboss/wildfly /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
 
 To boot in domain mode
 
