@@ -2,9 +2,11 @@
 FROM jboss/base-jdk:11
 
 # Set the WILDFLY_VERSION env variable
-ENV WILDFLY_VERSION 18.0.1.Final
-ENV WILDFLY_SHA1 ef0372589a0f08c36b15360fe7291721a7e3f7d9
-ENV JBOSS_HOME /opt/jboss/wildfly
+# Also ensure signals are forwarded to the JVM process correctly for graceful shutdown
+ENV WILDFLY_VERSION 18.0.1.Final \
+    WILDFLY_SHA1 ef0372589a0f08c36b15360fe7291721a7e3f7d9 \
+    JBOSS_HOME /opt/jboss/wildfly \
+    LAUNCH_JBOSS_IN_BACKGROUND true
 
 USER root
 
@@ -18,9 +20,6 @@ RUN cd $HOME \
     && rm wildfly-$WILDFLY_VERSION.tar.gz \
     && chown -R jboss:0 ${JBOSS_HOME} \
     && chmod -R g+rw ${JBOSS_HOME}
-
-# Ensure signals are forwarded to the JVM process correctly for graceful shutdown
-ENV LAUNCH_JBOSS_IN_BACKGROUND true
 
 USER jboss
 
