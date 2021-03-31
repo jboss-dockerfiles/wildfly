@@ -51,6 +51,14 @@ This way of deployment is great because of a few things:
 
 Logging can be done in many ways. [This blog post](https://goldmann.pl/blog/2014/07/18/logging-with-the-wildfly-docker-image/) describes a lot of them.
 
+## Change JAVA_OPTS
+
+To add or modify JAVA_OPTS, run the container like below:
+
+    docker run -it --env JAVA_OPTS="-server -Xms512m -Xmx512m" jboss/wildfly
+
+Or else extend the `jboss/wildfly` image to customize JAVA_OPTS values.
+
 ## Customizing configuration
 
 Sometimes you need to customize the application server configuration. There are many ways to do it and [this blog post](https://goldmann.pl/blog/2014/07/23/customizing-the-configuration-of-the-wildfly-docker-image/) tries to summarize it.
