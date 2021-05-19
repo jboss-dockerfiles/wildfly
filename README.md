@@ -55,6 +55,12 @@ Logging can be done in many ways. [This blog post](https://goldmann.pl/blog/2014
 
 Sometimes you need to customize the application server configuration. There are many ways to do it and [this blog post](https://goldmann.pl/blog/2014/07/23/customizing-the-configuration-of-the-wildfly-docker-image/) tries to summarize it.
 
+## Initialization scripts
+
+If you need additional configuration it is possible to execute CLI scripts before initialization using:
+
+    docker run -it -v [PATH TO YOUR SCRIPTS]:/init jboss/wildfly
+
 ## Extending the image
 
 To be able to create a management user to access the administration console create a Dockerfile with the following content

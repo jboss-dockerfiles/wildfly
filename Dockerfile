@@ -29,4 +29,6 @@ EXPOSE 8080
 
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
-CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0"]
+COPY entrypoint.sh /entrypoint.sh
+COPY wait_for_jboss_cli.js /wait_for_jboss_cli.js
+ENTRYPOINT ["/entrypoint.sh"]
