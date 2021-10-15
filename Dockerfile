@@ -2,8 +2,8 @@
 FROM jboss/base-jdk:11
 
 # Set the WILDFLY_VERSION env variable
-ENV WILDFLY_VERSION 24.0.1.Final
-ENV WILDFLY_SHA1 751e3ff9128a6fbe72016552a9b864f729a710cc
+ENV WILDFLY_VERSION 25.0.0.Final
+ENV WILDFLY_SHA1 238e67f48f1bd1e79f2d845cba9194dcd54b4d89
 ENV JBOSS_HOME /opt/jboss/wildfly
 
 USER root
@@ -11,7 +11,7 @@ USER root
 # Add the WildFly distribution to /opt, and make wildfly the owner of the extracted tar content
 # Make sure the distribution is available from a well-known place
 RUN cd $HOME \
-    && curl -O https://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz \
+    && curl -L -O https://github.com/wildfly/wildfly/releases/download/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz \
     && sha1sum wildfly-$WILDFLY_VERSION.tar.gz | grep $WILDFLY_SHA1 \
     && tar xf wildfly-$WILDFLY_VERSION.tar.gz \
     && mv $HOME/wildfly-$WILDFLY_VERSION $JBOSS_HOME \
