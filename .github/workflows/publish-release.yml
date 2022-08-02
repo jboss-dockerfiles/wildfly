@@ -3,7 +3,7 @@ name: publish-release
 on:
   push:
     tags:
-      - "*.Final"
+      - "*.Final*"
 jobs:
   image:
     environment: quay.io
