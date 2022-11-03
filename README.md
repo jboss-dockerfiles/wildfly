@@ -6,9 +6,38 @@ This is an example Dockerfile with [WildFly application server](http://wildfly.o
 **NOTE**
 
 Official builds for this image are now published to [https://quay.io/wildfly/wildfly](https://quay.io/wildfly/wildfly).  
-Previous repository at [https://hub.docker.com/r/jboss/wildfly](https://hub.docker.com/r/jboss/wildfly) is no longer updated with new images
+Previous repository at [https://hub.docker.com/r/jboss/wildfly](https://hub.docker.com/r/jboss/wildfly) is no longer updated with new images.
 
 ---
+
+## WildFly Images
+
+WildFly publishes images to run the application server with different JDK versions.
+The tag of the image identifies the version of WildFly as well as the JDK version in the images.
+
+For each release of WildFly (e.g. `27.0.0.Final`), there are fixed tags for each supported JDK version:
+
+* `quay.io/wildfly/wildfly:27.0.0.Final-jdk11`
+* `quay.io/wildfly/wildfly:27.0.0.Final-jdk17`
+
+There are also floating tags available to pull the _latest release of WildFly on the various JDK_:
+
+* `quay.io/wildfly/wildfly:latest-jdk11`
+* `quay.io/wildfly/wildfly:latest-jdk17`
+
+Finally, there is the `latest` tag that pull the _latest release of WildFly on the latest LTS JDK version_:
+
+* `quay.io/wildfly/wildfly:latest`
+
+---
+**NOTE**
+
+_This floating tag may correspond to a different JDK version in future releases of WildFly images._
+
+Instead of using the `latest` tag, we recommend to use the floating tag with the JDK version mention to guarantee the use of the same JDK version across WildFly releases (e.g. `latest-jdk17`).
+
+---
+
 
 ## Usage
 
