@@ -1,5 +1,10 @@
-# Use latest jboss/base-jdk:11 image as the base
-FROM jboss/base-jdk:11
+ARG jdk=11
+FROM eclipse-temurin:${jdk}-centos7
+
+WORKDIR /opt/jboss
+
+RUN groupadd -r jboss -g 1000 && useradd -u 1000 -r -g jboss -m -d /opt/jboss -s /sbin/nologin -c "JBoss user" jboss && \
+    chmod 755 /opt/jboss
 
 # Set the WILDFLY_VERSION env variable
 ENV WILDFLY_VERSION 26.1.2.Final
