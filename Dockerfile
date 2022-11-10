@@ -1,4 +1,5 @@
-ARG jdk=11
+# By default, build on JDK 17
+ARG jdk=17
 FROM eclipse-temurin:${jdk}-centos7
 
 LABEL org.opencontainers.image.source=https://github.com/jboss-dockerfiles/wildfly org.opencontainers.image.title=wildfly org.opencontainers.imag.url=https://github.com/jboss-dockerfiles/wildfly org.opencontainers.image.vendor=WildFly
@@ -9,8 +10,8 @@ RUN groupadd -r jboss -g 1000 && useradd -u 1000 -r -g jboss -m -d /opt/jboss -s
     chmod 755 /opt/jboss
 
 # Set the WILDFLY_VERSION env variable
-ENV WILDFLY_VERSION 26.1.2.Final
-ENV WILDFLY_SHA1 3dda0f3795c00cedf8b14c83f8c341244e7cad44
+ENV WILDFLY_VERSION 27.0.0.Final
+ENV WILDFLY_SHA1 31106643002ae570444b4e30e376e27fff23cc2f
 ENV JBOSS_HOME /opt/jboss/wildfly
 
 USER root
