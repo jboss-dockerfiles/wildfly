@@ -8,17 +8,14 @@ name: Build and push WildFly Docker images
 
 on:
   push:
-    tags-ignore:
+    tags:
       - "26*"
 
 jobs:
   image:
     strategy:
       matrix:
-        jdk-version: [11, 17, 19]
-    env:
-      # Put the "latest" tag on this JDK version
-      JDK_VERSION_FOR_LATEST: 17
+        jdk-version: [11, 17]
     environment: quay.io
     runs-on: ubuntu-latest
     steps:
@@ -33,8 +30,6 @@ jobs:
             latest=false
           tags: |
             type=ref,event=tag,suffix=-jdk${{ matrix.jdk-version }}
-            type=raw,value=latest,suffix=-jdk${{ matrix.jdk-version }}
-            type=raw,value=latest,enable=${{ matrix.jdk-version == env.JDK_VERSION_FOR_LATEST }}
           labels: |
             org.opencontainers.image.jdk-version=${{ matrix.jdk-version }}
       - name: Set up QEMU
