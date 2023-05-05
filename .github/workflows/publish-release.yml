@@ -13,12 +13,18 @@ on:
 
 jobs:
   image:
-    strategy:
-      matrix:
-        jdk-version: [11, 17, 19]
     env:
       # Put the "latest" tag on this JDK version
       JDK_VERSION_FOR_LATEST: 17
+    strategy:
+      matrix:
+        include:
+          - jdk-version: 11
+            dist: centos7
+          - jdk-version: 17
+            dist: centos7
+          - jdk-version: 20
+            dist: ubi9-minimal
     environment: quay.io
     runs-on: ubuntu-latest
     steps:
@@ -53,6 +59,8 @@ jobs:
         with:
           push: true
           platforms: linux/amd64,linux/arm64
-          build-args: jdk=${{ matrix.jdk-version }}
+          build-args: |
+            jdk=${{ matrix.jdk-version }}
+            dist=${{ matrix.dist }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
