@@ -12,8 +12,8 @@ RUN groupadd -r jboss -g 1000 && useradd -u 1000 -r -g jboss -m -d /opt/jboss -s
     chmod 755 /opt/jboss
 
 # Set the WILDFLY_VERSION env variable
-ENV WILDFLY_VERSION 30.0.1.Final
-ENV WILDFLY_SHA1 d6827219672cabfd4eca47e5b64699727bb61f0b
+ENV WILDFLY_VERSION 31.0.0.Final
+ENV WILDFLY_SHA1 5d02503c696c230d0803456c29d03d60776da339
 ENV JBOSS_HOME /opt/jboss/wildfly
 
 USER root
