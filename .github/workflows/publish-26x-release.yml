@@ -6,10 +6,13 @@ name: Build and push WildFly Docker images
 # secrets.REGISTRY_USER     - the user name to authentication before pushing the image
 # secrets.REGISTRY_PASSWORD - the user password to authentication before pushing the image
 
+#on:
+ # push:
+  #  tags:
+   #   - "26*"
+
 on:
-  push:
-    tags:
-      - "26*"
+  workflow_dispatch:
 
 jobs:
   image:
@@ -47,7 +50,7 @@ jobs:
         uses: docker/build-push-action@v3.2.0
         with:
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64,linux/arm64,linux/ppc64le
           build-args: jdk=${{ matrix.jdk-version }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
