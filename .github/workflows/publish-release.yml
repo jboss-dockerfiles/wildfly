@@ -38,7 +38,7 @@ jobs:
           flavor: |
             latest=false
           tags: |
-            type=ref,event=push,suffix=-jdk${{ matrix.jdk-version }}
+            type=ref,event=tag,suffix=-jdk${{ matrix.jdk-version }}
             type=raw,value=latest,suffix=-jdk${{ matrix.jdk-version }}
             type=raw,value=latest,enable=${{ matrix.jdk-version == env.JDK_VERSION_FOR_LATEST }}
           labels: |
