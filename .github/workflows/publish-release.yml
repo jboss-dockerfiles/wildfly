@@ -38,7 +38,7 @@ jobs:
           flavor: |
             latest=false
           tags: |
-            type=ref,event=tag,suffix=-jdk${{ matrix.jdk-version }}
+            type=ref,event=push,suffix=-jdk${{ matrix.jdk-version }}
             type=raw,value=latest,suffix=-jdk${{ matrix.jdk-version }}
             type=raw,value=latest,enable=${{ matrix.jdk-version == env.JDK_VERSION_FOR_LATEST }}
           labels: |
@@ -62,5 +62,5 @@ jobs:
           build-args: |
             jdk=${{ matrix.jdk-version }}
             dist=${{ matrix.dist }}
-          tags: ryandmo/wildfly:jdk${{ matrix.jdk-version }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
