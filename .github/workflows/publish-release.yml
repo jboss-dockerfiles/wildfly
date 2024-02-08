@@ -10,6 +10,7 @@ on:
   push:
     tags-ignore:
       - "26*"
+      - "20*"
 
 jobs:
   image:
