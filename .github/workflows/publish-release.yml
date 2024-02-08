@@ -6,7 +6,10 @@ name: Build and push WildFly Docker images
 # secrets.REGISTRY_USER     - the user name to authentication before pushing the image
 # secrets.REGISTRY_PASSWORD - the user password to authentication before pushing the image
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - master
 
 jobs:
   image:
