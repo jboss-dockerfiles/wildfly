@@ -62,5 +62,5 @@ jobs:
           build-args: |
             jdk=${{ matrix.jdk-version }}
             dist=${{ matrix.dist }}
-          tags: ${{ steps.meta.raw.tags }}
+          tags: ryandmo/wildfly:jdk${{ matrix.jdk-version }}
           labels: ${{ steps.meta.outputs.labels }}
