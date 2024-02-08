@@ -8,8 +8,8 @@ name: Build and push WildFly Docker images
 
 on:
   push:
-    branches:
-      - master
+    tags-ignore:
+      - "26*"
 
 jobs:
   image:
@@ -23,8 +23,6 @@ jobs:
             dist: centos7
           - jdk-version: 17
             dist: centos7
-          - jdk-version: 20
-            dist: ubi9-minimal
     environment: quay.io
     runs-on: ubuntu-latest
     steps:
@@ -50,7 +48,7 @@ jobs:
       - name: Docker Login to Quay.io
         uses: docker/login-action@v2.1.0
         with:
-          #registry: ${{ secrets.REGISTRY }}
+          registry: ${{ secrets.REGISTRY }}
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - name: Build and push JDK images
