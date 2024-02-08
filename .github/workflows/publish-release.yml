@@ -62,5 +62,5 @@ jobs:
           build-args: |
             jdk=${{ matrix.jdk-version }}
             dist=${{ matrix.dist }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.raw.tags }}
           labels: ${{ steps.meta.outputs.labels }}
