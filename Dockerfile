@@ -6,6 +6,11 @@ FROM eclipse-temurin:${jdk}-${dist}
 
 LABEL org.opencontainers.image.source=https://github.com/jboss-dockerfiles/wildfly org.opencontainers.image.title=wildfly org.opencontainers.imag.url=https://github.com/jboss-dockerfiles/wildfly org.opencontainers.image.vendor=WildFly
 
+# Starting on jdk 21 eclipse-temurin is based on ubi9-minimal version 9.3 
+#   that doesn't includes shadow-utils package that provides groupadd & useradd commands
+# Conditional RUN: IF no groupadd AND microdnf THEN: update, install shadow-utils, clean
+RUN if ! [ -x "$(command -v groupadd)" ] && [ -x "$(command -v microdnf)" ]; then microdnf update -y && microdnf install --best --nodocs -y shadow-utils && microdnf clean all; fi
+
 WORKDIR /opt/jboss
 
 RUN groupadd -r jboss -g 1000 && useradd -u 1000 -r -g jboss -m -d /opt/jboss -s /sbin/nologin -c "JBoss user" jboss && \
