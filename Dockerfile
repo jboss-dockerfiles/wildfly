@@ -2,7 +2,7 @@
 ARG jdk=17
 # Red Hat UBI 9 (ubi9-minimal) should be used on JDK 20 and later.
 ARG dist=centos7
-FROM eclipse-temurin:${jdk}-${dist}
+FROM ppc64le/eclipse-temurin:${jdk}-${dist}
 
 LABEL org.opencontainers.image.source=https://github.com/jboss-dockerfiles/wildfly org.opencontainers.image.title=wildfly org.opencontainers.imag.url=https://github.com/jboss-dockerfiles/wildfly org.opencontainers.image.vendor=WildFly
 
