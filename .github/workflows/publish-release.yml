@@ -15,7 +15,7 @@ jobs:
   image:
     env:
       # Put the "latest" tag on this JDK version
-      JDK_VERSION_FOR_LATEST: 17
+      JDK_VERSION_FOR_LATEST: 21
     strategy:
       matrix:
         include:
@@ -23,7 +23,7 @@ jobs:
             dist: centos7
           - jdk-version: 17
             dist: centos7
-          - jdk-version: 20
+          - jdk-version: 21
             dist: ubi9-minimal
     environment: quay.io
     runs-on: ubuntu-latest

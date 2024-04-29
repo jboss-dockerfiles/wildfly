@@ -1,7 +1,7 @@
 # By default, build on JDK 17 on CentOS 7.
-ARG jdk=17
+ARG jdk=21
 # Red Hat UBI 9 (ubi9-minimal) should be used on JDK 20 and later.
-ARG dist=centos7
+ARG dist=ubi9-minimal
 FROM eclipse-temurin:${jdk}-${dist}
 
 LABEL org.opencontainers.image.source=https://github.com/jboss-dockerfiles/wildfly org.opencontainers.image.title=wildfly org.opencontainers.imag.url=https://github.com/jboss-dockerfiles/wildfly org.opencontainers.image.vendor=WildFly
