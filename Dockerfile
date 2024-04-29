@@ -1,10 +1,15 @@
 # By default, build on JDK 17 on CentOS 7.
-ARG jdk=17
+ARG jdk=21
 # Red Hat UBI 9 (ubi9-minimal) should be used on JDK 20 and later.
-ARG dist=centos7
+ARG dist=ubi9-minimal
 FROM eclipse-temurin:${jdk}-${dist}
 
 LABEL org.opencontainers.image.source=https://github.com/jboss-dockerfiles/wildfly org.opencontainers.image.title=wildfly org.opencontainers.imag.url=https://github.com/jboss-dockerfiles/wildfly org.opencontainers.image.vendor=WildFly
+
+# Starting on jdk 21 eclipse-temurin is based on ubi9-minimal version 9.3 
+#   that doesn't includes shadow-utils package that provides groupadd & useradd commands
+# Conditional RUN: IF no groupadd AND microdnf THEN: update, install shadow-utils, clean
+RUN if ! [ -x "$(command -v groupadd)" ] && [ -x "$(command -v microdnf)" ]; then microdnf update -y && microdnf install --best --nodocs -y shadow-utils && microdnf clean all; fi
 
 WORKDIR /opt/jboss
 
