@@ -106,13 +106,9 @@ Then you can build the image:
 
     docker build --tag=jboss/wildfly-admin .
 
-Or for JDK 11:
+Or for JDK 11, JDK 17+ :
 
-    docker build --build-arg dist=centos7 --build-arg jdk=11 --tag=jboss/wildfly-admin .
-
-Or for JDK 20:
-
-    docker build --build-arg dist=ubi9-minimal --build-arg jdk=20 --tag=jboss/wildfly-admin .
+    docker build --build-arg dist=ubi9-minimal --build-arg jdk=11 --tag=jboss/wildfly-admin .
 
 Run it:
 
@@ -128,7 +124,7 @@ You don't need to do this on your own, because we prepared a trusted build for t
 
 ## Image internals [updated May 15, 2023]
 
-This image extends the [`eclipse-temurin`](https://hub.docker.com/_/eclipse-temurin) JDK. Starting with JDK 17, this base OS used is [`ubi9-minimal`](https://catalog.redhat.com/software/containers/ubi9-minimal/61832888c0d15aff4912fe0d). Earlier versions, including the LTS JDK 11, are based on [`centos7`](https://hub.docker.com/_/centos). A UBI 9 image to validate the build arguments provided.
+This image extends the [`eclipse-temurin`](https://hub.docker.com/_/eclipse-temurin) JDK. Starting with JDK 11, this base OS used is [`ubi9-minimal`](https://catalog.redhat.com/software/containers/ubi9-minimal/61832888c0d15aff4912fe0d). A UBI 9 image to validate the build arguments provided.
 
 This image installs the wildfly server and sets up the JBoss environment similar to [`jboss/base`](https://github.com/jboss-dockerfiles/base) image. Please refer to the README.md for selected images and more info.
 

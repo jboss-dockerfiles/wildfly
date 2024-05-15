@@ -20,7 +20,7 @@ jobs:
       matrix:
         include:
           - jdk-version: 11
-            dist: centos7
+            dist: ubi9-minimal
           - jdk-version: 17
             dist: ubi9-minimal
           - jdk-version: 21

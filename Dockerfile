@@ -1,6 +1,6 @@
-# By default, build on JDK 17 on UBI 9.
+# By default, build on JDK 11 on UBI 9.
 ARG jdk=21
-# Red Hat UBI 9 (ubi9-minimal) should be used on JDK 20 and later.
+# Red Hat UBI 9 (ubi9-minimal) should be used on JDK 11 and later.
 ARG dist=ubi9-minimal
 FROM eclipse-temurin:${jdk}-${dist}
 
