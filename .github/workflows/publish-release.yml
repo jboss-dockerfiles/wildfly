@@ -22,7 +22,7 @@ jobs:
           - jdk-version: 11
             dist: centos7
           - jdk-version: 17
-            dist: centos7
+            dist: ubi9-minimal
           - jdk-version: 21
             dist: ubi9-minimal
     environment: quay.io
