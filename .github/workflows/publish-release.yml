@@ -29,6 +29,9 @@ jobs:
           - jdk-version: 21
             dist: ubi9-minimal
             platforms: linux/amd64,linux/arm64,linux/s390x,linux/ppc64le
+          - jdk-version: 20
+            dist: ubi9-minimal
+            platforms: linux/amd64,linux/arm64
     environment: quay.io
     runs-on: ubuntu-latest
     steps:
