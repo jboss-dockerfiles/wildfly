@@ -23,8 +23,10 @@ jobs:
             dist: ubi9-minimal
           - jdk-version: 17
             dist: ubi9-minimal
+            platforms: linux/amd64,linux/arm64
           - jdk-version: 21
             dist: ubi9-minimal
+            platforms: linux/amd64,linux/arm64,linux/s390x
     environment: quay.io
     runs-on: ubuntu-latest
     steps:
@@ -58,7 +60,7 @@ jobs:
         uses: docker/build-push-action@v5.3.0
         with:
           push: true
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ matrix.platforms }}
           build-args: |
             jdk=${{ matrix.jdk-version }}
             dist=${{ matrix.dist }}
