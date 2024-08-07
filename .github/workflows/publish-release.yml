@@ -21,7 +21,7 @@ jobs:
         include:
           - jdk-version: 11
             dist: ubi9-minimal
-            platforms: linux/amd64,linux/arm64
+            platforms: linux/amd64,linux/arm64,linux/ppc64le
           - jdk-version: 17
             dist: ubi9-minimal
             platforms: linux/amd64,linux/arm64
