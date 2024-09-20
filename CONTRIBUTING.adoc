@@ -1,0 +1,15 @@
+# Contributing guide
+
+**First off all, thank you for taking the time to contribute into Docker images for WildFly!** 
+
+# Issues & Requests for enhancement
+
+This project uses GitHub to manage issues and RFEs. All issues can be found https://github.com/jboss-dockerfiles/wildfly/issues[here].
+
+To create a new issue, comment on an existing issue, or assign an issue to yourself, you'll need to first a GitHub account.
+
+# Good First Issues
+
+Check out our issues with the `good-first-issue` label. These are a triaged set of issues that are great for getting started on our project. These can be found https://github.com/jboss-dockerfiles/wildfly/issues?q=is%3Aissue+is%3Aopen+label%3Agood-first-issue[here].
+
+Lastly, this project is an open source project. Please act responsibly, be nice, polite and enjoy!
