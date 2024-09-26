@@ -40,7 +40,8 @@ check_wildfly_version() {
   return 1
 }
 
-WILDFLY_VERSION=$(grep "ENV WILDFLY_VERSION" Dockerfile | rev | cut -d' ' -f1 | rev)
+# Get the WildFly version by cutting "ENV WILDFLY_VERSION="
+WILDFLY_VERSION=$(grep "ENV WILDFLY_VERSION=" Dockerfile | cut -c21-)
 
 docker run --rm -p 8080:8080 ${WILDFLY_IMAGE} &
 sleep 2
