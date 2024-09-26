@@ -8,8 +8,8 @@ name: Build and push WildFly Docker images
 
 on:
   push:
-    tags-ignore:
-      - "26*"
+    tags:
+      - "*"
 
 jobs:
   image:
