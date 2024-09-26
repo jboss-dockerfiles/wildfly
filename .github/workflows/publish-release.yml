@@ -1,4 +1,4 @@
-name: Build and push WildFly Docker images
+name: Build WildFly Docker images
 
 # This action requires 4 secrets:
 # secrets.REGISTRY          - the container registry (e.g. quay.io)

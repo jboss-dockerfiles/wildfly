@@ -17,9 +17,9 @@ RUN groupadd -r jboss -g 1000 && useradd -u 1000 -r -g jboss -m -d /opt/jboss -s
     chmod 755 /opt/jboss
 
 # Set the WILDFLY_VERSION env variable
-ENV WILDFLY_VERSION 33.0.2.Final
-ENV WILDFLY_SHA1 a42e8cb6a83931a8f85c7064cb7220e16c6dc0c9
-ENV JBOSS_HOME /opt/jboss/wildfly
+ENV WILDFLY_VERSION=33.0.2.Final
+ENV WILDFLY_SHA1=a42e8cb6a83931a8f85c7064cb7220e16c6dc0c9
+ENV JBOSS_HOME=/opt/jboss/wildfly
 
 USER root
 
@@ -35,7 +35,7 @@ RUN cd $HOME \
     && chmod -R g+rw ${JBOSS_HOME}
 
 # Ensure signals are forwarded to the JVM process correctly for graceful shutdown
-ENV LAUNCH_JBOSS_IN_BACKGROUND true
+ENV LAUNCH_JBOSS_IN_BACKGROUND=true
 
 USER jboss
 
