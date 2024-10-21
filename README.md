@@ -106,10 +106,6 @@ Then you can build the image:
 
     docker build --tag=jboss/wildfly-admin .
 
-Or for JDK 11, JDK 17+ :
-
-    docker build --build-arg dist=ubi9-minimal --build-arg jdk=11 --tag=jboss/wildfly-admin .
-
 Run it:
 
     docker run -it jboss/wildfly-admin

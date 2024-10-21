@@ -1,4 +1,4 @@
-# By default, build on JDK 11 on UBI 9.
+# By default, build on JDK 21 on UBI 9.
 ARG jdk=21
 # Red Hat UBI 9 (ubi9-minimal) should be used on JDK 11 and later.
 ARG dist=ubi9-minimal
