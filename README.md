@@ -45,12 +45,8 @@ Instead of using the `latest` tag, we recommend to use the floating tag with the
 
 To boot in standalone mode
 
-    docker run -it quay.io/wildfly/wildfly
+    docker run -p 8080:8080 -it quay.io/wildfly/wildfly
     
-To boot in standalone mode with admin console available remotely
-
-    docker run -p 8080:8080 -p 9990:9990 -it quay.io/wildfly/wildfly /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0
-
 To boot in domain mode
 
     docker run -it quay.io/wildfly/wildfly /opt/jboss/wildfly/bin/domain.sh -b 0.0.0.0 -bmanagement 0.0.0.0
@@ -94,23 +90,27 @@ Logging can be done in many ways. [This blog post](https://goldmann.pl/blog/2014
 
 Sometimes you need to customize the application server configuration. There are many ways to do it and [this blog post](https://goldmann.pl/blog/2014/07/23/customizing-the-configuration-of-the-wildfly-docker-image/) tries to summarize it.
 
-## Extending the image
+## Extending the image with the management console
 
-To be able to create a management user to access the administration console create a Dockerfile with the following content
+To be able to create an admin user to access the management console create a `Dockerfile` with the following content
 
     FROM quay.io/wildfly/wildfly
-    RUN /opt/jboss/wildfly/bin/add-user.sh admin Admin#70365 --silent
+
+    RUN --mount=type=secret,id=ADMIN_USER,env=ADMIN_USER,required=true             \
+        --mount=type=secret,id=ADMIN_PASSWORD,env=ADMIN_PASSWORD,required=true     \
+        $JBOSS_HOME/bin/add-user.sh -u ${ADMIN_USER} -p ${ADMIN_PASSWORD} --silent
+
     CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
 
 Then you can build the image:
 
-    docker build --tag=jboss/wildfly-admin .
+    ADMIN_USER=alice ADMIN_PASSWORD=Admin#70365 docker build --tag=jboss/wildfly-admin --secret id=ADMIN_USER --secret id=ADMIN_PASSWORD .
 
-Run it:
+Run it with:
 
-    docker run -it jboss/wildfly-admin
+    docker run -p 8080:8080 -p 9990:9990 -it jboss/wildfly-admin
 
-Administration console will be available on the port `9990` of the container.
+Management console will be available on the port `9990` of the container and you can connect with `alice` : `Admin#70365`.
 
 ## Building on your own
 
