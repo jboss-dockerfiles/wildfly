@@ -1,0 +1,127 @@
+= WildFly Images
+
+WildFly publishes images to run the application server with different JDK versions.
+The tag of the image identifies the version of WildFly as well as the JDK version in the images.
+
+For each release of WildFly (e.g. `34.0.1.Final`), there are fixed tags for each supported JDK version:
+
+* `quay.io/wildfly/wildfly:34.0.1.Final-jdk17`
+* `quay.io/wildfly/wildfly:34.0.1.Final-jdk21`
+
+There are also floating tags available to pull the _latest release of WildFly on the various JDK_:
+
+* `quay.io/wildfly/wildfly:latest-jdk17`
+* `quay.io/wildfly/wildfly:latest-jdk21`
+
+Finally, there is the `latest` tag that pull the _latest release of WildFly on the latest LTS JDK version_:
+
+* `quay.io/wildfly/wildfly:latest`
+
+---
+**NOTE**
+
+_This floating tag may correspond to a different JDK version in future releases of WildFly images._
+
+Instead of using the `latest` tag, we recommend to use the floating tag with the JDK version mention to guarantee the use of the same JDK version across WildFly releases (e.g. `latest-jdk17`).
+
+---
+
+== Usage
+
+To boot in standalone mode
+
+    podman run -p 8080:8080 quay.io/wildfly/wildfly
+    
+To boot in domain mode
+
+    podman run quay.io/wildfly/wildfly /opt/jboss/wildfly/bin/domain.sh -b 0.0.0.0 -bmanagement 0.0.0.0
+
+== Application deployment
+
+With the WildFly server you can https://docs.wildfly.org/34/Admin_Guide.html#application-deployment[deploy your application in multiple ways]
+
+1. You can use CLI
+2. You can use the web console
+3. You can use the management API directly
+4. You can use the deployment scanner
+
+The most popular way of deploying an application is using the deployment scanner. In WildFly this method is enabled by default and the only thing you need to do is to place your application inside of the `deployments/` directory. It can be `/opt/jboss/wildfly/standalone/deployments/` or `/opt/jboss/wildfly/domain/deployments/` depending on https://docs.wildfly.org/34/Admin_Guide.html#Operating_modes[which mode] you choose (standalone is default in the `jboss/wildfly` image -- see above).
+
+The simplest and cleanest way to deploy an application to WildFly running in a container started from the `quay.io/wildfly/wildfly` image is to use the deployment scanner method mentioned above.
+
+To do this you just need to extend the `quay.io/wildfly/wildfly` image by creating a new one. Place your application inside the `deployments/` directory with the `ADD` command (but make sure to include the trailing slash on the deployment folder path, https://docs.docker.com/reference/builder/#add[more info]). You can also do the changes to the configuration (if any) as additional steps (`RUN` command).  
+
+The steps are the following:
+
+1. Create `Dockerfile` with following content:
+
+        FROM quay.io/wildfly/wildfly
+        ADD your-awesome-app.war $JBOSS_HOME/standalone/deployments/
+
+2. Place your `your-awesome-app.war` file in the same directory as your `Dockerfile`.
+3. Run the build with `podman build --tag=wildfly-app .`
+4. Run the container with `podman run wildfly-app`.
+
+== Logging
+
+You can enable loggers by executing WildFly CLI script/commands when building the image. For example create a `Dockerfile` with the following content:
+
+    FROM quay.io/wildfly/wildfly
+    RUN $JBOSS_HOME/bin/jboss-cli.sh --commands="embed-server,/subsystem=logging/console-handler=CONSOLE:write-attribute(name=level,value=TRACE),/subsystem=logging/logger=org.wildfly.security:add(level=TRACE)"
+    # Delete any content generated during embedded execution. Required to avoid read-only directory at server startup
+    RUN rm -rf $JBOSS_HOME/standalone/configuration/standalone_xml_history; rm -rf $JBOSS_HOME/standalone/tmp; rm -rf $JBOSS_HOME/standalone/data
+    CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+
+Then you can build the image:
+
+    podman build --tag=wildfly-logging .
+
+Run it with:
+
+    podman run -p 9990:9990 wildfly-logging
+
+In another terminal, attempt to access the management console `curl 127.0.0.1:9990/management`, you will see security traces displayed in the console.
+
+== Extending the image with the management console
+
+To be able to create an admin user to access the management console create a `Dockerfile` with the following content:
+
+    FROM quay.io/wildfly/wildfly
+    USER root
+    RUN --mount=type=secret,id=ADMIN_USER,required=true         \
+        --mount=type=secret,id=ADMIN_PASSWORD,required=true     \
+        $JBOSS_HOME/bin/add-user.sh -u $(cat /run/secrets/ADMIN_USER) -p $(cat /run/secrets/ADMIN_PASSWORD) --silent
+    USER jboss
+    CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+
+Create the 2 secret files:
+    
+    echo "alice" > admin_user
+    echo "Admin#70365" > admin_password
+
+Then you can build the image:
+
+    podman build --tag=wildfly-admin --secret=id=ADMIN_USER,src=admin_user --secret=id=ADMIN_PASSWORD,src=admin_password .
+
+Run it with:
+
+    podman run -p 9990:9990 wildfly-admin
+
+Management console will be available on the port `9990` of the container and you can connect with `alice` : `Admin#70365`.
+
+== Image internals
+
+This image extends the https://hub.docker.com/_/eclipse-temurin[`eclipse-temurin`] JDK. This base OS used is https://catalog.redhat.com/software/containers/ubi9-minimal/61832888c0d15aff4912fe0d[`ubi9-minimal`].
+
+The server is run as the `jboss` user which has the uid/gid set to `1000`.
+
+WildFly is installed in the `/opt/jboss/wildfly` directory. The environment variable `JBOSS_HOME` can be used to reference this installation directory.
+
+== Source
+
+The source is https://github.com/jboss-dockerfiles/wildfly[available on GitHub].
+
+== Issues
+
+Please report any issues or file RFEs on https://github.com/jboss-dockerfiles/wildfly/issues[GitHub].
+
