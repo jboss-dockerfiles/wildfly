@@ -119,9 +119,9 @@ WildFly is installed in the `/opt/jboss/wildfly` directory. The environment vari
 
 == Source
 
-The source is https://github.com/jboss-dockerfiles/wildfly[available on GitHub].
+The source is https://github.com/wildfly/wildfly-container[available on GitHub].
 
 == Issues
 
-Please report any issues or file RFEs on https://github.com/jboss-dockerfiles/wildfly/issues[GitHub].
+Please report any issues or file RFEs on https://github.com/wildfly/wildfly-container/issues[GitHub].
 
